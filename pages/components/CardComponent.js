@@ -6,7 +6,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "../../styles/CardComponent.module.css";
 
-const CardComponent = () => {
+const CardComponent = ({ post }) => {
   const [fav, setFav] = useState(false);
 
   const makeFavorite = () => {
@@ -18,20 +18,20 @@ const CardComponent = () => {
       <div className={styles.cardHeader}>
         <Image
           className={styles.userImg}
-          src="/user-one.jpg"
+          src={post.profileUrl}
           width={70}
           height={70}
         />
-        <h3>Waseem Sajjadh</h3>
+        <h3>{post.userName}</h3>
       </div>
       {/* Card Body */}
       <div>
         <div className={styles.container}>
-          <img src="/cat.jpg" alt="Snow" />
+          <img src={post.postImageUrl} alt="Snow" />
           <div className={styles.bottomLeft}>
             <div className={styles.shortDetails}>
-              <h5>Good cat</h5>
-              <h3>AED 230</h3>
+              <h5>{post.postTitle}</h5>
+              <h3>AED {post.price}</h3>
             </div>
           </div>
 
@@ -51,16 +51,20 @@ const CardComponent = () => {
       <div className={styles.footer}>
         <div className={styles.likesContainer}>
           <FontAwesomeIcon icon={faHeart} className={styles.icon} />
-          <p>32 Likes</p>
+          <p>{post.totalLikes} Likes</p>
         </div>
         <div>
-          <p>Lorem Ipsum is simply dummy text of the printing.</p>
+          <p>{post.postDescription}</p>
           <div className={styles.tags}>
-            <a href="#">#as</a>
-            <a href="#">#as</a>
-            <a href="#">#as</a>
+            {post.tags.map((tag, index) => (
+              <a href="#" key={index}>
+                #{tag}
+              </a>
+            ))}
           </div>
-          <p className={styles.viewComment}>View 12 comments</p>
+          <p className={styles.viewComment}>
+            View {post.totalComments} comments
+          </p>
         </div>
       </div>
     </div>

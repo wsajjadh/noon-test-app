@@ -6,11 +6,17 @@ import BaseComponent from "./components/BaseComponent";
 import Footer from "./components/NavComponent";
 import SpinnerComponent from "./components/SpinnerComponent";
 
+import store from "./store/store";
+
 const FavoritePage = () => {
   // loading state
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    store.getDetails().then((res) => {
+      console.log(`res`, res);
+    });
+
     setTimeout(() => {
       // Hide loading
       setLoading(false);

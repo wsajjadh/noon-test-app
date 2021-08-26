@@ -7,11 +7,30 @@ import Footer from "./components/NavComponent";
 import SpinnerComponent from "./components/SpinnerComponent";
 import CardComponent from "./components/CardComponent";
 
+import store from "./store/store";
+import { resolveHref } from "next/dist/shared/lib/router/router";
+
 export default function Home() {
   const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState([]);
+
+  // seperating function can be usefull in future
+  const fetchPosts = () => {
+    return new Promise((resolve) => {
+      store.fetchPosts().then((res) => {
+        resolve(res);
+      });
+    });
+  };
 
   useEffect(() => {
+    // to show loader
+    // This is not need (setTimeout) if we use real api
     setTimeout(() => {
+      fetchPosts().then((res) => {
+        setPosts(res);
+      });
+      // Loading will be hide whether success or fails
       setLoading(false);
     }, 2000);
   }, []);
@@ -29,10 +48,9 @@ export default function Home() {
           </Head>
 
           <BaseComponent>
-            <CardComponent />
-            <CardComponent />
-            <CardComponent />
-            <CardComponent />
+            {posts.map((post) => (
+              <CardComponent key={post.postId} post={post} />
+            ))}
           </BaseComponent>
 
           <Footer />
