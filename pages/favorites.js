@@ -5,23 +5,35 @@ import BaseComponent from "./components/BaseComponent";
 
 import Footer from "./components/NavComponent";
 import SpinnerComponent from "./components/SpinnerComponent";
+import CardComponent from "./components/CardComponent";
 
 import store from "./store/store";
 
 const FavoritePage = () => {
   // loading state
   const [loading, setLoading] = useState(true);
+  const [num, setNum] = useState(0);
+  const [posts, setPosts] = useState([]);
+
+  const makeFavorite = (id) => {
+    store.addToFavorite(id).then(() => {
+      store.fetchFavorites().then((res) => {
+        setNum(num + 1);
+        setPosts(res);
+      });
+    });
+  };
 
   useEffect(() => {
-    store.getDetails().then((res) => {
-      console.log(`res`, res);
+    store.fetchFavorites().then((res) => {
+      setPosts(res);
     });
 
     setTimeout(() => {
       // Hide loading
       setLoading(false);
     }, 2000);
-  }, []);
+  }, [num]);
 
   return (
     <div>
@@ -32,7 +44,13 @@ const FavoritePage = () => {
           <HeadComponent title="Favorite" content="Favorite page content" />
 
           <BaseComponent>
-            <h1>Favorite screen</h1>
+            {posts.map((post) => (
+              <CardComponent
+                key={post.postId}
+                post={post}
+                makeFavorite={makeFavorite}
+              />
+            ))}
           </BaseComponent>
 
           <Footer />

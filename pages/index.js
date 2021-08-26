@@ -8,10 +8,10 @@ import SpinnerComponent from "./components/SpinnerComponent";
 import CardComponent from "./components/CardComponent";
 
 import store from "./store/store";
-import { resolveHref } from "next/dist/shared/lib/router/router";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
+  const [num, setNum] = useState(0);
   const [posts, setPosts] = useState([]);
 
   // seperating function can be usefull in future
@@ -19,6 +19,16 @@ export default function Home() {
     return new Promise((resolve) => {
       store.fetchPosts().then((res) => {
         resolve(res);
+      });
+    });
+  };
+
+  // Pass this function from here to fetch post again to imitate like reacting to state changes
+  const makeFavorite = (id) => {
+    store.addToFavorite(id).then(() => {
+      fetchPosts().then((res) => {
+        setNum(num + 1);
+        setPosts(res);
       });
     });
   };
@@ -33,7 +43,7 @@ export default function Home() {
       // Loading will be hide whether success or fails
       setLoading(false);
     }, 2000);
-  }, []);
+  }, [num]); // re render when value changes
 
   return (
     <div>
@@ -49,7 +59,11 @@ export default function Home() {
 
           <BaseComponent>
             {posts.map((post) => (
-              <CardComponent key={post.postId} post={post} />
+              <CardComponent
+                key={post.postId}
+                post={post}
+                makeFavorite={makeFavorite}
+              />
             ))}
           </BaseComponent>
 

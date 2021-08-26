@@ -4,14 +4,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as rHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
+import store from "../store/store";
+
 import styles from "../../styles/CardComponent.module.css";
 
-const CardComponent = ({ post }) => {
+const CardComponent = ({ post, makeFavorite }) => {
   const [fav, setFav] = useState(false);
 
-  const makeFavorite = () => {
+  /* const makeFavorite = (id) => {
     setFav(!fav);
-  };
+    store.addToFavorite(id);
+  }; */
 
   return (
     <div className={styles.card}>
@@ -37,9 +40,13 @@ const CardComponent = ({ post }) => {
 
           <div className={styles.bottomRight}>
             <div className={styles.favSection}>
-              <button onClick={makeFavorite}>
+              <button
+                onClick={() => {
+                  makeFavorite(post.postId);
+                }}
+              >
                 <FontAwesomeIcon
-                  icon={fav ? faHeart : rHeart}
+                  icon={post.favorite ? faHeart : rHeart}
                   className={styles.icon}
                 />
               </button>
