@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
+import Head from "next/head";
 import styles from "../styles/Home.module.css";
-
-import HeadComponent from "./components/HeadComponent";
 import BaseComponent from "./components/BaseComponent";
 
 import Footer from "./components/NavComponent";
 import SpinnerComponent from "./components/SpinnerComponent";
-
-import Card from "./components/CardComponent";
+import CardComponent from "./components/CardComponent";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -24,10 +22,17 @@ export default function Home() {
         <SpinnerComponent />
       ) : (
         <div className={styles.container}>
-          <HeadComponent title="Home" content="Home page content" />
+          <Head>
+            <title>Home</title>
+            <meta name="description" content="Test app for noon" />
+            <link rel="icon" href="/favicon.ico" />
+          </Head>
 
           <BaseComponent>
-            <Card />
+            <CardComponent />
+            <CardComponent />
+            <CardComponent />
+            <CardComponent />
           </BaseComponent>
 
           <Footer />

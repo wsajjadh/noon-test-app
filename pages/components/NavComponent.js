@@ -1,6 +1,9 @@
 import Link from "next/link";
-import styles from "../../styles/Home.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome, faHeart } from "@fortawesome/free-solid-svg-icons";
+
 import Icon from "./IconComponent";
+import styles from "../../styles/Home.module.css";
 
 const FooterComponent = () => {
   return (
@@ -9,13 +12,13 @@ const FooterComponent = () => {
         <Link href="/">
           <a>
             {" "}
-            <Icon icon="home" alt="Home" width={72} height={16} />
+            <FontAwesomeIcon icon={faHome} />
           </a>
         </Link>
 
         <Link href="/favorites">
           <a>
-            <Icon icon="heart" alt="Fav" width={72} height={16} />
+            <FontAwesomeIcon icon={faHeart} />
           </a>
         </Link>
       </div>
