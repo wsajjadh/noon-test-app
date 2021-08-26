@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
-
 import HeadComponent from "./components/HeadComponent";
 import BaseComponent from "./components/BaseComponent";
 
 import Footer from "./components/NavComponent";
 import SpinnerComponent from "./components/SpinnerComponent";
 
-import Card from "./components/CardComponent";
-
-export default function Home() {
+const FavoritePage = () => {
+  // loading state
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
+      // Hide loading
       setLoading(false);
     }, 2000);
   }, []);
@@ -24,16 +23,17 @@ export default function Home() {
         <SpinnerComponent />
       ) : (
         <div className={styles.container}>
-          <HeadComponent title="Home" content="Home page content" />
+          <HeadComponent title="Favorite" content="Favorite page content" />
 
           <BaseComponent>
-            <Card />
+            <h1>Favorite screen</h1>
           </BaseComponent>
 
           <Footer />
         </div>
       )}
     </div>
-    // <SpinnerComponent />
   );
-}
+};
+
+export default FavoritePage;
