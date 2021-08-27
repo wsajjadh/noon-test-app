@@ -4,13 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as rHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-import store from "../store/store";
-
 import styles from "../../styles/CardComponent.module.css";
 
 const CardComponent = ({ post, makeFavorite }) => {
-  const [fav, setFav] = useState(false);
-
   /* const makeFavorite = (id) => {
     setFav(!fav);
     store.addToFavorite(id);

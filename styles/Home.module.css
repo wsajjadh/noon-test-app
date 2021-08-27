@@ -17,27 +17,6 @@
   align-items: center; */
 }
 
-.footer {
-  width: 100%;
-  height: 70px;
-  border-top: 1px solid #eaeaea;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  background-color: #f0f;
-}
-
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  color: #fff;
-}
-
 .title a {
   color: #0070f3;
   text-decoration: none;
@@ -126,5 +105,13 @@
   .grid {
     width: 100%;
     flex-direction: column;
+  }
+}
+
+/* Medium Devices, Desktops and laptops*/
+@media only screen and (min-width: 992px) {
+  .main {
+    width: 40%;
+    margin: 7% auto;
   }
 }

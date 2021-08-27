@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styles from "../styles/Home.module.css";
+import styles from "../styles/Favorites.module.css";
 import HeadComponent from "./components/HeadComponent";
 import BaseComponent from "./components/BaseComponent";
 
@@ -14,20 +14,27 @@ const FavoritePage = () => {
   const [loading, setLoading] = useState(true);
   const [num, setNum] = useState(0);
   const [posts, setPosts] = useState([]);
+  const [noPost, setNoPost] = useState(false);
 
   const makeFavorite = (id) => {
     store.addToFavorite(id).then(() => {
-      store.fetchFavorites().then((res) => {
+      setNum(num + 1);
+      /* store.fetchFavorites().then(() => {
         setNum(num + 1);
-        setPosts(res);
-      });
+      }); */
     });
   };
 
   useEffect(() => {
-    store.fetchFavorites().then((res) => {
-      setPosts(res);
-    });
+    store
+      .fetchFavorites()
+      .then((res) => {
+        setPosts(res);
+      })
+      .catch(() => {
+        // No favs, reject from promise
+        setNoPost(true);
+      });
 
     setTimeout(() => {
       // Hide loading
@@ -37,20 +44,26 @@ const FavoritePage = () => {
 
   return (
     <div>
+      <HeadComponent title="Favorite" content="Favorite page content" />
+
       {loading ? (
         <SpinnerComponent />
       ) : (
         <div className={styles.container}>
-          <HeadComponent title="Favorite" content="Favorite page content" />
-
           <BaseComponent>
-            {posts.map((post) => (
-              <CardComponent
-                key={post.postId}
-                post={post}
-                makeFavorite={makeFavorite}
-              />
-            ))}
+            {!noPost ? (
+              posts.map((post) => (
+                <CardComponent
+                  key={post.postId}
+                  post={post}
+                  makeFavorite={makeFavorite}
+                />
+              ))
+            ) : (
+              <div className={styles.noPostContainer}>
+                <h1>No Favorites</h1>
+              </div>
+            )}
           </BaseComponent>
 
           <Footer />

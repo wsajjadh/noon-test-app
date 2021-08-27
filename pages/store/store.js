@@ -50,9 +50,10 @@ class Store {
   fetchPosts() {
     return new Promise((resolve) => {
       // Simulating like api response by delaying
-      setTimeout(() => {
+      resolve(this.state.posts);
+      /* setTimeout(() => {
         resolve(this.state.posts);
-      }, 2000);
+      }, 2000); */
     });
   }
 
@@ -60,7 +61,7 @@ class Store {
     return new Promise((resolve) => {
       this.isExistInFavorite(id)
         .then(() => {
-          console.log(`success`);
+          // console.log(`success`);
           // Not exists, Push to array
           // unshift to push at 1st, So we may get fav order
           this.state.favorites.unshift(id);
@@ -68,7 +69,7 @@ class Store {
           resolve();
         })
         .catch((error) => {
-          console.log(`reject => `, error);
+          // console.log(`reject => `, error);
           // Exist, remove from the array
           // Simply I use filter to remove from fav
           this.state.favorites = this.state.favorites.filter(
@@ -96,7 +97,7 @@ class Store {
   fetchFavorites() {
     return new Promise((resolve, reject) => {
       const favorites = this.state.favorites;
-      console.log(`favs => `, favorites);
+      // console.log(`favs => `, favorites);
       let posts = [];
       // Check favorites empty or not
       if (favorites.length == 0) {

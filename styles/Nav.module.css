@@ -1,0 +1,55 @@
+.footer {
+  width: 100%;
+  height: 70px;
+  border-top: 1px solid #eaeaea;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  /* bottom: 0; */
+  background-color: royalblue;
+}
+
+.footer a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  color: #fff;
+}
+
+.footer a:click {
+  background-color: salmon;
+}
+
+/* The best breakpoints recommended by Twitter Bootstrap */
+/* Small Devices, Tablets, iPhone Retina*/
+@media only screen and (min-width: 320px) {
+  .footer {
+    bottom: 0;
+  }
+
+  p.navLabelText {
+    display: none;
+  }
+}
+/* Medium Devices, Desktops and laptops*/
+@media only screen and (min-width: 992px) {
+  .main {
+    margin-top: 10%;
+  }
+
+  .footer {
+    bottom: unset;
+  }
+
+  p.navLabelText {
+    display: block;
+    margin-right: 10px;
+  }
+
+  .navIcon {
+    display: none;
+  }
+}
